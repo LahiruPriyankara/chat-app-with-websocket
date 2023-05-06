@@ -1,0 +1,176 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/app-style.css" />
+	</head>
+
+<body style="background-image: url('image/backGroundImage.jpg');">
+
+<form class="form-inline">
+    <div class="form-group">
+        <label for="connect">WebSocket connection:</label><br/><br/>
+
+        <button id="connect" class="btn btn-default" type="submit" style="width:100px">Connect</button><br/>
+        <span id="connectData" style="color:green"></span><br/><br/>
+
+        <button id="disconnect" class="btn btn-default" type="submit" style="width:100px" disabled="disabled">Disconnect</button><br/>
+        <span id="disconnectData" style="color:red"></span><br/><br/>
+
+        <span id="countNumber" style="color:red"></span><br/><br/>
+    </div>
+</form>
+
+
+<div id="frame">
+    <div id="sidepanel">
+        <div id="profile">
+            <div class="wrap">
+                <img src="image/alex.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                <p style="font-size: 12px;">Alex Ross</p> <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+                <div id="status-options">
+                    <ul>
+                        <li id="status-online" class="active"> <span class="status-circle"></span>
+                            <p>Online</p>
+                        </li>
+                        <li id="status-away"> <span class="status-circle"></span>
+                            <p>Away</p>
+                        </li>
+                        <li id="status-busy"> <span class="status-circle"></span>
+                            <p>Busy</p>
+                        </li>
+                        <li id="status-offline"> <span class="status-circle"></span>
+                            <p>Offline</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="search"> <input type="text" placeholder="Search contacts..." /> </div>
+        <div id="contacts">
+            <ul style="list-style-type: none; margin: 0; padding: 0;">
+                <li class="contact active" onclick="showMessages('CompanyGroup')">
+                    <div class="wrap"> <span class="contact-status online"></span>
+                        <img src="image/CompanyGroup.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Our Comapany Group</p>
+                            <p class="preview">LITT up, Mike.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="contact" onclick="showMessages('Alex')">
+                    <div class="wrap"> <span class="contact-status online"></span>
+                        <img src="image/Alex.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Alex Litt</p>
+                            <p class="preview">You just got LITT up, Mike.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="contact" onclick="showMessages('Rox')">
+                    <div class="wrap"> <span class="contact-status online"></span>
+                        <img src="image/Rox.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Rox Specter</p>
+                            <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="contact" onclick="showMessages('Joe')">
+                    <div class="wrap"> <span class="contact-status online"></span>
+                        <img src="image/Joe.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Joe Zane</p>
+                            <p class="preview">I was thinking that we could have chicken tonight, sounds good?</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="contact">
+                    <div class="wrap"> <span class="contact-status busy"></span>
+                        <img src="image/Andria.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Andia faxiar</p>
+                            <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="contact">
+                    <div class="wrap"> <span class="contact-status away"></span>
+                        <img src="image/Androw.jpg" class="online" alt="" style="width: 45px; height: 45px;" />
+                        <div class="meta">
+                            <p class="name">Adrow kane</p>
+                            <p class="preview">I was thinking that we could have chicken tonight, sounds good?</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="bottom-bar"> <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span  style="font-size: 12px;">Add contact</span></button> <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span  style="font-size: 12px;">Settings</span></button> </div>
+    </div>
+    <div class="content">
+        <div>
+            <div class="contact-profile" id="chatWithPersionImage"> <img src="image/companyGroup.jpg" alt="" style="width: 45px; height: 45px;" /> </div>
+            <div class="messages">
+                <div id="CompanyGroup">
+                    <ul>
+                        <li class="sent"> <img src="image/joe.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>GROUP How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                        </li>
+                        <li class="replies"> <img  src="image/alex.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="Alex" hidden>
+                    <ul>
+                        <li class="sent"> <img src="image/joe.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>ALEX How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                        </li>
+                        <li class="replies"> <img src="image/alex.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="Rox" hidden>
+                    <ul>
+                        <li class="sent"> <img src="image/joe.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>ROK How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                        </li>
+                        <li class="replies"> <img src="image/alex.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="Joe" hidden>
+                    <ul>
+                        <li class="sent"> <img src="image/joe.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>JOE How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                        </li>
+                        <li class="replies"> <img src="image/alex.jpg" class="online" alt="" style="width: 20px; height: 20px;" />
+                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="message-input">
+                <div class="wrap"> <input type="text" placeholder="Write your message..." />
+                    <img src="image/attachment.png" class="online" alt="" style="width: 40px; height: 40px;" onclick="receivedNewMessageTest()" />
+                    <img src="image/sendMessage.png" class="online" alt="" style="width: 40px; height: 40px;" onclick="newMessage()" /> </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var contacts = document.getElementsByClassName("contact");
+for (var i = 0; i < contacts.length; i++) {
+  contacts[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  current[1].className = current[1].className.replace(" active", "");
+  this.className += " active";
+  });
+}
+</script>
+<script src="js/appScript.js"></script>
+</html>
